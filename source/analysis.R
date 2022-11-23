@@ -82,7 +82,6 @@ plot_jail_pop_for_us <- function()  {
   return(plot(plot))   
 }
 
-plot_jail_pop_for_us()
 
 
 ## Section 4  ---- 
@@ -113,7 +112,6 @@ plot_jail_pop_by_states <- function(x){
          x = "Year", caption = "Figure 2. Increase in Jail Population of Western U.S. States")
   return(plot(plot))   
 }
-plot_jail_pop_by_states(states)
 
 
 ## Section 5  ---- 
