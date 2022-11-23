@@ -1,7 +1,7 @@
 ---
-title: "Your A4 Report Title (TODO: Revise title)"
-author: "Your Name"
-date: '2022-11-01'
+title: "Racial Disparities in Male Imprisonment Rates in Texas"
+author: "Emma O'Dwyer"
+date: '2022-11-19'
 output: html_document
 ---
 
@@ -10,36 +10,52 @@ source("../source/a4-helpers.R")
 source("../source/analysis.R")
 ```
 
-## Abstract 
-[TODO: Include a short abstract (about 50 words)]
+## Abstract
 
-# Test (TODO: Remove before submission!!)
-```{r echo=FALSE}
-q1_string <- test_query1()
-num <- 5
-```
-As you know, this is a markdown report. The [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) is **useful!**
+This report aims to investigate patterns of inequality in the prison system in the state of Texas. I decided to focus on inequalities between black males and white males on a county level and on a rural/urban level.
 
-* Here's a test of a dynamic variable. Say **"`r q1_string`!!!** 
-* Here's another test. A vector
-of numbers: `r test_query2(num)`.
+## Introduction
 
-Recall that _{r echo=TRUE}_ can be used to display the code, 
-which is very useful when developing and debugging a report. Here's an example: 
+Using the incarceration data, this report aims to expose patterns of inequality in the Texas prison system. Prisons in Texas were segregated up until 1977 but they became desegregated after a case was brought against the state for racial discrimination. Despite no longer being segregated, race still plays on important role in the severity and frequency of prison sentencing. This report focuses on the disparity between black male sentencing rates and white male sentencing rates across different areas of Texas, both on a county level and on an urban vs. rural level. Research into this topic allows for more awareness regarding how race can affect imprisonment and this report aims to educate others in order for the Texan prison system to be held accountable. The Texas judicial system and prison system are direct stakeholders of this report as they may be forced to re-evaluate their policies and do further research into the depth of inequalities that are present. Indirect stakeholders of this report include the black male population who are currently affected by the existing inequalities.
 
-```{r echo=TRUE}
-num <- 5
-sum <- sum(test_query2(num))
-print(sum)
+## Data Summary
+
+Exploring the incarceration data and focusing on the state of Texas, we can see that there are 254 different counties within the state. From the exploration, I found that the county with the highest prison population in 2016 was `r summary_info$no_texas_county[1]` with a total prison population of `r summary_info$no_texas_county[2]`. Furthermore, the county with the largest black population was also `r summary_info$max_black_pop_texas_county[1]` with a population of `r summary_info$max_black_pop_texas_county[2]`.
+
+Looking at the state on a broader level, we can see that the mean white population per county is `r summary_info$mean_white_pop` while the mean black population per county is `r summary_info$mean_black_pop`. We can see that the mean number of males in prison per county by race does not accurately reflect this large population difference with a mean of `r summary_info$mean_black_male_prison_pop` black men in prison per county and a mean of `r summary_info$mean_white_male_prison_pop` white men in prison per county.
+
+## Growth of the U.S. Prison Population
+
+```{r section 3,echo=FALSE, message=FALSE}
+plot_jail_pop_for_us()
+
 ```
 
-## Introduction 
-[TODO]
+The chart above shows how the total U.S jail population has changed from 1970 to 2018. From this barchart, we can see that there is a rapid increase in jail population from 1978 up until 2008 where the jail population then levels off and begins to decrease slightly.
 
-## Data Summary 
-[TODO]
+## Growth of Prison Population by State
 
-[TODO ... other sections ... See Canvas for details]
+```{r section 4,echo=FALSE, message=FALSE}
+plot_jail_pop_by_states(states)
 
-_All the very best with your work!_
+```
 
+This line plot chart the increase of jail populations in the states of Arizona, California, Oregon, Utah and Washington. There is a trend in all five states of increasing jail population as timer goes on. It can be seen that the jailed population is much larger in the state of California than elsewhere. Furthermore, the increase in jail population is much greater than in the other four states which is represented by the state's steep slope in the plot.
+
+## Black vs. White Male Imprisonment in Rural and Urban Texas
+
+```{r section 5,echo=FALSE, message=FALSE}
+tx_male_race_plot(tx_male_prison_by_race())
+
+```
+
+The interactive plot above shows the rate of black and white males in prison as a percentage of the total black and total white population, respectively, from 2005 to 2016 in urban and rural Texas. We can see that for both groups, there are higher rates of imprisonment in rural areas. Jarringly, the imprisonment rate for black men is almost five times as high as for white men at its peak and remains over three times as high at its lowest. The white male imprisonment rate is increasing over the years whereas the black male imprisonment rate is decreasing.
+
+## Map of Counties in Texas Showing the Ratio of Black Male Imprisonment Rates to White Male Imprisonment Rates
+
+```{r section 6,echo=FALSE, message=FALSE}
+plot_tx_male_race_map_data(tx_male_race_map_data((tx_male_prison_by_race())))
+
+```
+
+The interactive choropleth map above shows the ratio of the rate of black male imprisonment to white male imprisonment by county in Texas in 2016. As we can see, many counties are shown in grey as these counties did not report their prison population by race. The map shows that in Oldham county, black males are over 39 times as likely to be incarcerated than white males. Large urban counties such as Harris county and Dallas county have rates of black male imprisonment over three times as high as white male imprisonment. We can see that some counties have ratios of zero, this tended to occur in small counties with very small black populations, these counties can act as outliers and could have affected the Figure 3.
